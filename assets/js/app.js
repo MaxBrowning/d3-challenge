@@ -130,30 +130,23 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
     var yAxis = chartGroup.append("g")
       .call(leftAxis);
   
-    // // append initial circles
-    // var circlesGroup = chartGroup.selectAll("circle")
-    //   .data(stateData)
-    //   .enter()
-    //   .append("circle")
-    //   .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    //   .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    //   .attr("r", 10)
-    //   .attr("fill", "lightblue");
-
-    var circlesGroup = svg.selectAll('g.dot')
+    // append initial circles
+    var circlesGroup = chartGroup.selectAll("circle")
       .data(stateData)
-      .enter().append('g');
-
-    circlesGroup.append('circle')
-      .attr('class', 'dot')
-      .attr('r', 10)
+      .enter()
+      .append("circle")
       .attr("cx", d => xLinearScale(d[chosenXAxis]))
       .attr("cy", d => yLinearScale(d[chosenYAxis]))
-      .attr('fill', 'lightblue')
+      .attr("r", 10)
+      .attr('class', 'stateCircle');
 
+    // add label to circles with state abbreviation
     circlesGroup.append('text')
       .text(d => d['abbr'])
-    
+      .attr('class', 'stateText')
+      .attr("x", d => xLinearScale(d[chosenXAxis]))
+      .attr("y", d => yLinearScale(d[chosenYAxis]))
+      .attr('z-index', 1000);
 
     // Create group for three x-axis labels
     var xlabelsGroup = chartGroup.append("g")
