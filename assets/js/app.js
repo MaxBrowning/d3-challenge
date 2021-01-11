@@ -130,15 +130,30 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
     var yAxis = chartGroup.append("g")
       .call(leftAxis);
   
-    // append initial circles
-    var circlesGroup = chartGroup.selectAll("circle")
+    // // append initial circles
+    // var circlesGroup = chartGroup.selectAll("circle")
+    //   .data(stateData)
+    //   .enter()
+    //   .append("circle")
+    //   .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    //   .attr("cy", d => yLinearScale(d[chosenYAxis]))
+    //   .attr("r", 10)
+    //   .attr("fill", "lightblue");
+
+    var circlesGroup = svg.selectAll('g.dot')
       .data(stateData)
-      .enter()
-      .append("circle")
+      .enter().append('g');
+
+    circlesGroup.append('circle')
+      .attr('class', 'dot')
+      .attr('r', 10)
       .attr("cx", d => xLinearScale(d[chosenXAxis]))
       .attr("cy", d => yLinearScale(d[chosenYAxis]))
-      .attr("r", 10)
-      .attr("fill", "lightblue");
+      .attr('fill', 'lightblue')
+
+    circlesGroup.append('text')
+      .text(d => d['abbr'])
+    
 
     // Create group for three x-axis labels
     var xlabelsGroup = chartGroup.append("g")
