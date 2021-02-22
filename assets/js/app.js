@@ -141,7 +141,10 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
       .attr('class', 'stateCircle');
 
     // add label to circles with state abbreviation
-    circlesGroup.append('text')
+    circlesGroup.selectAll('text')
+      .data(stateData)
+      .enter()
+      .append('text')
       .text(d => d['abbr'])
       .attr('class', 'stateText')
       .attr("x", d => xLinearScale(d[chosenXAxis]))
